@@ -4,8 +4,37 @@ Requirements:
 1.  Create sample pet database similar to rover.com
 2.  Generate a user interface for Dr. Patel to maintain and update records.
 
+# Business Rules
 
+•	DBMS must block technicians that are not certified from administering medicine or bathe pets
+•	Must identify customers who are teachers
+•	Teachers will receive a 10% discount
+•	Must identify college students
+•	Company will start servicing dogs and cats only
+•	Pet type must be expandable
+•	Teachers cannot be students
+•	Students cannot be teachers
+•	Database must have the following tables
+  o	Pets
+  o	Services
+  o	Technicians
+   	Members of group must be first technicians
+  o	Orders
+  o	Customers
+  o	Ratings
+  o	Teacher
+  o	Occupation
+  o	User
+ •	Must be able to view deleted records
+ •	DBMS Must have backup, recover, and security features
 
+# User Interface was ommitted for the time being, but would be the next step given more time
+
+# See 'petcare_eerd' file also included for entity relationship diagram
+
+# See 'petcare_data_dictionary.xlsx' attached for data dictionary
+
+# Triggers
 
 DELIMITER |
 DROP TRIGGER IF EXISTS upd_customer|
@@ -33,14 +62,40 @@ CREATE TRIGGER update_cred
 DELIMITER ;
 
 
-
-
-
-
-
+# Views
 USE petcare;
 
-# creates new users as they are inserted into database
+CREATE VIEW petcare.order_detail_v AS
+	(
+		SELECT o.OrderID
+			, o.OrderDate
+            , s.Type
+            , s.Cost
+			FROM orders o
+				INNER JOIN orderservices os
+					ON o.OrderID = os.OrderID
+				INNER JOIN service s
+					ON os.ServiceID = s.ServiceID
+	)
+;
+
+CREATE VIEW petcare.teachers_coach_v AS
+	(
+		SELECT concat(u.FirstName, ' ', u.LastName) Name
+			, t.Position
+			, t.SchoolName
+			FROM petcare.user u
+				INNER JOIN petcare.teacher t
+					ON u.UserID = t.UserID
+			WHERE u.UserID IN (SELECT UserID FROM petcare.teacher WHERE coach = 1)
+	)
+;
+
+
+
+# Stored Procedures
+USE petcare;
+
 DELIMITER |
 CREATE PROCEDURE new_user
  (IN userid int(11), 
@@ -76,9 +131,8 @@ DELIMITER ;
 
 
 
-
 USE petcare;
-# creates new orders when they are inserted
+
 DELIMITER |
 CREATE PROCEDURE create_order
  (IN ord_num int(11), 
@@ -102,43 +156,6 @@ CREATE PROCEDURE create_order
     END
 |
 DELIMITER ;
-
-
-
-
-
-
-
-USE petcare;
-# view of details associated with a particular order
-CREATE VIEW petcare.order_detail_v AS
- (
-  SELECT o.OrderID
-   , o.OrderDate
-            , s.Type
-            , s.Cost
-   FROM orders o
-    INNER JOIN orderservices os
-     ON o.OrderID = os.OrderID
-    INNER JOIN service s
-     ON os.ServiceID = s.ServiceID
- )
-;
-
-# finds all users who are also coaches
-CREATE VIEW petcare.teachers_coach_v AS
- (
-  SELECT concat(u.FirstName, ' ', u.LastName) Name
-   , t.Position
-   , t.SchoolName
-            , u.email
-   FROM petcare.user u
-    INNER JOIN petcare.teacher t
-     ON u.UserID = t.UserID
-   WHERE u.UserID IN (SELECT UserID FROM petcare.teacher WHERE coach = 1)
- )
-;
-SELECT * FROM petcare.teachers_coach_v
 
 
 
