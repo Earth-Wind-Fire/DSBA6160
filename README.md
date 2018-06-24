@@ -6,8 +6,8 @@ Requirements:
 
 # Business Rules
 
-1. DBMS must block technicians that are not certified from administering medicine or bathe pets
-Must identify customers who are teachers
+1.  DBMS must block technicians that are not certified from administering medicine or bathe pets
+2.  Must identify customers who are teachers
 •	Teachers will receive a 10% discount
 •	Must identify college students
 •	Company will start servicing dogs and cats only
