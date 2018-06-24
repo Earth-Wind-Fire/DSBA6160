@@ -8,25 +8,25 @@ Requirements:
 
 1.  DBMS must block technicians that are not certified from administering medicine or bathe pets
 2.  Must identify customers who are teachers
-•	Teachers will receive a 10% discount
-•	Must identify college students
-•	Company will start servicing dogs and cats only
-•	Pet type must be expandable
-•	Teachers cannot be students
-•	Students cannot be teachers
-•	Database must have the following tables
-  o	Pets
-  o	Services
-  o	Technicians
-   	Members of group must be first technicians
-  o	Orders
-  o	Customers
-  o	Ratings
-  o	Teacher
-  o	Occupation
-  o	User
- •	Must be able to view deleted records
- •	DBMS Must have backup, recover, and security features
+3.  Teachers will receive a 10% discount
+4.  Must identify college students
+5.  Company will start servicing dogs and cats only
+6.  Pet type must be expandable
+7.  Teachers cannot be students
+8.  Students cannot be teachers
+9.  Database must have the following tables
+   a.  Pets
+   b.  Services
+   c.  Technicians
+       i.  Members of group must be first technicians
+   d.  Orders
+   e.  Customers
+   f.  Ratings
+   g.  Teacher
+   h.  Occupation
+   i.  User
+ 10.  Must be able to view deleted records
+ 11.  DBMS Must have backup, recover, and security features
 
 # User Interface was ommitted for the time being, but would be the next step given more time
 
